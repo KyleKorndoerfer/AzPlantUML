@@ -1,3 +1,5 @@
+# GitHub defaults for Maven project type
+
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -9,3 +11,43 @@ buildNumber.properties
 .mvn/timing.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
+
+
+# Build output
+target/
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# IDE
+.idea/
+*.iml
+.settings/
+.project
+.classpath
+
+# macOS
+.DS_Store
+
+# Azure Functions
+local.settings.json
+bin/
+obj/
