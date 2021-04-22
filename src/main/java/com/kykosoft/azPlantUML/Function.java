@@ -9,6 +9,11 @@ import com.microsoft.azure.functions.annotation.AuthorizationLevel;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.HttpTrigger;
 
+import net.sourceforge.plantuml.SourceStringReader;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Optional;
 
 /**
@@ -24,7 +29,7 @@ public class Function {
     public HttpResponseMessage run(
             @HttpTrigger(
                 name = "req",
-                methods = {HttpMethod.GET, HttpMethod.POST},
+                methods = {HttpMethod.GET},
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<String>> request,
             final ExecutionContext context) {
@@ -40,4 +45,50 @@ public class Function {
             return request.createResponseBuilder(HttpStatus.OK).body("Hello, " + name).build();
         }
     }
+
+	/**
+	 * This function returns a sample image for testing purposes.
+	 */
+	@FunctionName("SampleDiagram")
+	public HttpResponseMessage getImage(
+			@HttpTrigger(
+				name = "req",
+				methods = {HttpMethod.GET},
+				authLevel = AuthorizationLevel.ANONYMOUS)
+				HttpRequestMessage<Optional<String>> request,
+			final ExecutionContext context ) {
+
+		byte[] img = generateDiagram();
+		HttpResponseMessage response = request
+			.createResponseBuilder(HttpStatus.OK)
+			.body(img)
+			.header("Content-Type", "image/png")
+			.build();
+
+		return response;
+	}
+
+	/**
+	 * Generates a sample diagram for testing purposes.
+	 *
+	 * @return sample PNG as an OutputStream.
+	 */
+	private byte[] generateDiagram() {
+		ByteArrayOutputStream png = new ByteArrayOutputStream();
+
+		String source = "@startuml\n";
+		source += "Bob -> Alice: Hello!\n";
+		source += "@enduml\n";
+
+		SourceStringReader reader = new SourceStringReader(source);
+		try {
+			String desc = reader.generateImage(png);
+
+			return png.toByteArray();
+		} catch (IOException ex) {
+			// error processing the diagram into a stream
+		}
+
+		return null;
+	}
 }

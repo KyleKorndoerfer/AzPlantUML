@@ -19,6 +19,13 @@
     </properties>
 
     <dependencies>
+
+    	<dependency>
+    		<groupId>net.sourceforge.plantuml</groupId>
+    		<artifactId>plantuml</artifactId>
+    		<version>8059</version>
+    	</dependency>
+
         <dependency>
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
@@ -70,7 +77,7 @@
                     <!-- function pricingTier, default to be consumption if not specified -->
                     <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details#supported-pricing-tiers for all valid values -->
                     <!-- <pricingTier></pricingTier> -->
-                    
+
                     <!-- Whether to disable application insights, default is false -->
                     <!-- refers https://github.com/microsoft/azure-maven-plugins/wiki/Azure-Functions:-Configuration-Details for all valid configurations for application insights-->
                     <!-- <disableAppInsights></disableAppInsights> -->
