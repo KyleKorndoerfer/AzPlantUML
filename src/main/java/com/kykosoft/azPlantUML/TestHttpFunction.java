@@ -56,37 +56,21 @@ public class TestHttpFunction {
 		headers.put("accept", "text/plain");
 
 		HttpWrapper httpWrapper = new HttpWrapper(logger, url);
-		//try {
-			String content = httpWrapper.GetStringContent("200", headers, null);
+		String content = httpWrapper.GetStringContent("200", headers, null);
 
-			if (content != null || content.length() > 0) {
-				response = request
-					.createResponseBuilder(HttpStatus.OK)
-					.body(content)
+		if (content != null && content.length() > 0) {
+			response = request
+				.createResponseBuilder(HttpStatus.OK)
+				.body(content)
+				.header("Content-Type", "text/plain")
+				.build();
+		} else {
+			response = request
+					.createResponseBuilder(HttpStatus.BAD_REQUEST)
+					.body("Request could not be proccessed")
 					.header("Content-Type", "text/plain")
 					.build();
-			} else {
-				response = request
-						.createResponseBuilder(HttpStatus.BAD_REQUEST)
-						.body("Request could not be proccessed")
-						.header("Content-Type", "text/plain")
-						.build();
-			}
-		// } catch (URISyntaxException ex) {
-		// 	logger.log(Level.SEVERE, "Invalid URI", ex);
-		// 	response = request
-		// 			.createResponseBuilder(HttpStatus.BAD_REQUEST)
-		// 			.body("Invalid URI specified; Exception: " + ex.getReason())
-		// 			.header("Content-Type", "text/plain")
-		// 			.build();
-		// } catch (IOException ex) {
-		// 	logger.log(Level.SEVERE, "Error while retrieving content", ex);
-		// 	response = request
-		// 			.createResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR)
-		// 			.body("Error retreiving content; Exception: " + ex.getMessage())
-		// 			.header("Content-Type", "text/plain")
-		// 			.build();
-		// }
+		}
 
 		return response;
 	}

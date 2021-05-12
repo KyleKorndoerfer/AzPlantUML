@@ -29,10 +29,8 @@ public class DiagramGenerator {
 		SourceStringReader reader = new SourceStringReader(source);
 
 		try (ByteArrayOutputStream png = new ByteArrayOutputStream()) {
-			//ByteArrayOutputStream png = new ByteArrayOutputStream();
 			String desc = reader.generateImage(png);	// desc would contain what?
 			byte[] pngBytes = png.toByteArray();
-			//png.close();
 
 			logger.info("Image successfully generated from the source content");
 
